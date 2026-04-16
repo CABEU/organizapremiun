@@ -1,0 +1,93 @@
+!DOCTYPE html
+html lang=pt-br
+head
+  meta charset=UTF-8
+  titleOrganizaPremiuntitle
+
+  style
+    body {
+      font-family Arial;
+      text-align center;
+      margin-top 50px;
+    }
+
+    input {
+      padding 10px;
+    }
+
+    button {
+      padding 10px;
+      margin-left 5px;
+    }
+
+    li {
+      margin 10px;
+      cursor pointer;
+    }
+
+    .concluida {
+      color green;
+      text-decoration line-through;
+    }
+  style
+
+head
+body
+
+  h1OrganizaPremiunh1
+
+  input type=text id=inputTarefa placeholder=Digite uma tarefa
+  button onclick=adicionarTarefa()Adicionarbutton
+
+  ul id=listaul
+
+  script
+    let tarefas = JSON.parse(localStorage.getItem(tarefas))  [];
+
+    function salvar() {
+      localStorage.setItem(tarefas, JSON.stringify(tarefas));
+    }
+
+    function mostrarTarefas() {
+      let lista = document.getElementById(lista);
+      lista.innerHTML = ;
+
+      tarefas.forEach((tarefa, i) = {
+        let li = document.createElement(li);
+        li.textContent = tarefa.texto;
+
+        if (tarefa.concluida) {
+          li.classList.add(concluida);
+        }
+
+        li.onclick = () = {
+          tarefas[i].concluida = !tarefas[i].concluida;
+          salvar();
+          mostrarTarefas();
+        };
+
+        lista.appendChild(li);
+      });
+    }
+
+    function adicionarTarefa() {
+      let input = document.getElementById(inputTarefa);
+
+      if (input.value === ) return;
+
+      tarefas.push({
+        texto input.value,
+        concluida false
+      });
+
+      input.value = ;
+
+      salvar();
+      mostrarTarefas();
+    }
+
+    mostrarTarefas();
+  script
+
+body
+html
